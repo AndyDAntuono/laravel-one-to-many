@@ -59,4 +59,5 @@ NB: dal momento che ieri non mi sono sentito bene, inizio questa repo oggi 10-10
 - modifico ulteriormente il modello Type.php e TypeSeeder.php soddisfare il completamento del Bonus 1.
 - Eseguo il comando php artisan make:controller Admin/TypeController --resource per un controller con i metodi base per le operazioni CRUD.
 - modifico il file web.php per aggiungingere le rotte per il CRUD di TypeController.php.
-- creo la sotto-cartella nella cartella admin (che asua volta si trova nella cartella views) e creo il file index.blade.php 
+- creo la sotto-cartella types nella cartella admin (che asua volta si trova nella cartella views) e creo il file index.blade.php 
+    - modifico il codice di index.blade.php secondo le mie necessità.
