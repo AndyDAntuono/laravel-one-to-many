@@ -56,3 +56,5 @@ NB: dal momento che ieri non mi sono sentito bene, inizio questa repo oggi 10-10
     }
 - dato che sono un ciuco, mi dimenticato di popolare la tabella Types e ciò significa che non appare nessuna opzione nel menù a tendina. Ergo apporto le dovute modifiche.
 - ho dovuto apportate diverse correzioni poiché riscontravo vari errori nel controolo delle view e nella scelta di tipologia di progetto.
+- modifico ulteriormente il modello Type.php e TypeSeeder.php soddisfare il completamento del Bonus 1.
+- Eseguo il comando php artisan make:controller Admin/TypeController --resource per un controller con i metodi base per le operazioni CRUD.
