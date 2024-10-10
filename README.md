@@ -64,3 +64,4 @@ NB: dal momento che ieri non mi sono sentito bene, inizio questa repo oggi 10-10
 - sempre nella sotto cartella types creo i file create.index.php e edit.blade.php.
     - modifico il codice di create.blade.php.
     - modifico il codide di edit.blade.php.
+- aggiorno il codice di TypeController.php per modificare le CRUD.

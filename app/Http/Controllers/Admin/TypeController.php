@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Type;
 
 class TypeController extends Controller
 {
@@ -12,9 +13,11 @@ class TypeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    // mostra l'elenco delle tipologie
     public function index()
     {
-        //
+        $types = Type::all();
+        return view('admin.types.index', compact('types'));
     }
 
     /**
@@ -22,9 +25,10 @@ class TypeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    // mostra il form per creare una nuova tipologia
     public function create()
     {
-        //
+        return view('admin.types.create');
     }
 
     /**
@@ -33,9 +37,19 @@ class TypeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    // salva una nuova tipologia
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|max:100|unique:types,name',
+        ]);
+
+        Type::create([
+            'name' => $validated['name'],
+            'slug' => Str::slug($validated['name']),
+        ]);
+
+        return redirect()->route('admin.types.index')->with('success', 'Tipologia creata con successo!');
     }
 
     /**
@@ -55,9 +69,10 @@ class TypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    // mostra il form per modificare una tipologia esistente
+    public function edit(Type $type)
     {
-        //
+        return view('admin.types.edit', compact('type'));
     }
 
     /**
@@ -67,9 +82,19 @@ class TypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    // Aggiorna una tipologia esistente
+    public function update(Request $request, Type $type)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|max:100|unique:types,name,' . $type->id,
+        ]);
+
+        $type->update([
+            'name' => $validated['name'],
+            'slug' => Str::slug($validated['name']),
+        ]);
+
+        return redirect()->route('admin.types.index')->with('success', 'Tipologia aggiornata con successo!');
     }
 
     /**
@@ -78,8 +103,10 @@ class TypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    // Elimina una tipologia
+    public function destroy(Type $type)
     {
-        //
+        $type->delete();
+        return redirect()->route('admin.types.index')->with('success', 'Tipologia eliminata con successo!');
     }
 }
