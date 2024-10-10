@@ -65,4 +65,5 @@ NB: dal momento che ieri non mi sono sentito bene, inizio questa repo oggi 10-10
     - modifico il codice di create.blade.php.
     - modifico il codide di edit.blade.php.
 - aggiorno il codice di TypeController.php per modificare le CRUD.
-- decido di creare un pannello di amministrazione e per questo creo il file admin.blade.php nella sotto-cartella layouts
+- decido di creare un pannello di amministrazione e per questo creo il file admin.blade.php nella sotto-cartella layouts.
+    - modifico il file admin.blade.php secondo le mie necessità.
