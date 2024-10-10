@@ -61,3 +61,4 @@ NB: dal momento che ieri non mi sono sentito bene, inizio questa repo oggi 10-10
 - modifico il file web.php per aggiungingere le rotte per il CRUD di TypeController.php.
 - creo la sotto-cartella types nella cartella admin (che asua volta si trova nella cartella views) e creo il file index.blade.php 
     - modifico il codice di index.blade.php secondo le mie necessità.
+- sempre nella sotto cartella types creo i file create.index.php e edit.blade.php.
