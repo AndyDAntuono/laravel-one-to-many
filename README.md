@@ -58,3 +58,4 @@ NB: dal momento che ieri non mi sono sentito bene, inizio questa repo oggi 10-10
 - ho dovuto apportate diverse correzioni poiché riscontravo vari errori nel controolo delle view e nella scelta di tipologia di progetto.
 - modifico ulteriormente il modello Type.php e TypeSeeder.php soddisfare il completamento del Bonus 1.
 - Eseguo il comando php artisan make:controller Admin/TypeController --resource per un controller con i metodi base per le operazioni CRUD.
+- modifico il file web.php per aggiungingere le rotte per il CRUD di TypeController.php.

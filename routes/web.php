@@ -31,6 +31,7 @@ Route::middleware('auth')->group(function () {
 Route::prefix('admin')->group(function () {
     Route::middleware('admin')->group(function () {
         Route::resource('projects', ProjectController::class);
+        Route::resource('types', TypeController::class);  // aggiungo la gestione delle tipologie
     });
 });
 
