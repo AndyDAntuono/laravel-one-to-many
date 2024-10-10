@@ -49,7 +49,7 @@
             <label for="type_id">Tipologia</label>
             <select name="type_id" id="type_id" class="form-control">
                 <option value="">Seleziona una tipologia</option>
-                @foreach ($types ad $type)
+                @foreach ($types as $type)
                     <option value="{{ $type->id }}">{{ $type->name }}</option>
                 @endforeach
             </select>
