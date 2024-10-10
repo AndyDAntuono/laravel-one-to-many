@@ -12,6 +12,9 @@
             <li>
                 {{ $project->title }}
 
+                <!-- Aggiungi un link per visualizzare i dettagli del progetto -->
+                <a href="{{ route('projects.show', $project->id) }}">{{ $project->title }}</a>
+
                 <!-- Pulsante per modificare il progetto corrente -->
                 <a href="{{ route('projects.edit', $project->id) }}" class="btn btn-warning">Modifica</a>
 
