@@ -28,4 +28,6 @@ NB: dal momento che ieri non mi sono sentito bene, inizio questa repo oggi 10-10
 - lancio i comandi php artisan serve e npm run dev
 - lancio il comando php artisan migrate:refresh --seed per rilanciare migrazione e seeder
 - lancio il comando php atisan storage:link
+- lancio il comando php artisan make:migration create_types_table per aggiiugere la colonna types alla tabella projects
+NB: ignorate il punto successiv per il momento: ho lanciato prima php artisan make:migration add_type_id_to_projects_table --table=projects per sbagio invece di php artisan make:migration create_types_table
 - lancio il comando php artisan make:migration add_type_id_to_projects_table --table=projects per aggiungere la colonna types alla tabella projects.
