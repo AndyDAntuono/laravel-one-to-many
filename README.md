@@ -29,7 +29,7 @@ NB: dal momento che ieri non mi sono sentito bene, inizio questa repo oggi 10-10
 - lancio il comando php artisan migrate:refresh --seed per rilanciare migrazione e seeder
 - lancio il comando php atisan storage:link
 - lancio il comando php artisan make:migration create_types_table per aggiiugere la colonna types alla tabella projects
-- modifico i2024_10_10_151521_create_types_table.php
+- modifico il file 2024_10_10_151521_create_types_table.php
 - lancio il comando php artisan make:migration add_type_id_to_projects_table --table=projects per aggiungere la colonna types alla tabella projects.
 - modifico 2024_10_10_151042_add_type_id_to_projects_table.php
 - lancio il comando php artisan make:model Type per creare l'omonimo modello
@@ -39,3 +39,18 @@ NB: dal momento che ieri non mi sono sentito bene, inizio questa repo oggi 10-10
 - modifico ProjectController per includere la gestione delle associazioni tra progetti e tipologie.
 - modifico create.blade.php per includere un dropdow, o menù a tendina, nella form così l'utente possa scegliere la tipologia del progetto.
 - ripeto il passaggio successivo ma stavolta per il file edit.blade.php.
+- dato che sono un ciuco non avevo effettuato php artisan migrate dopo aver creato le tabelle types e quella per la id.
+    - ma dal momento che avevo creato prima la tabella dell'id e DOPO quella di Types, la migrazione non poteve di certo avvenire correttamente!
+    - ergo ho rinominato la migrazione della tabella types da 2024_10_10-151521 a 2024_10_100000 per riparare a questo "paradosso temporale"
+    - ma avendo creato precedemente la tabella id riscontravo comunque degli errori. Ho quindi moficato 2024_10_10_151042_add_type_id_to_projects_table come segue:
+        public function up()
+    {
+        Schema::table('projects', function (Blueprint $table) {
+            if (!Schema::hasColumn('projects', 'type_id')) {
+                $table->unsignedBigInteger('type_id')->nullable(); // Aggiunge la colonna solo se non esiste
+            }
+        
+            // Crea la chiave esterna solo se la colonna è stata aggiunta
+            $table->foreign('type_id')->references('id')->on('types')->onDelete('set null');
+        });
+    }

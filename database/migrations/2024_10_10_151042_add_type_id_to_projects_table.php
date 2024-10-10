@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class AddTypeIdToProjectsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,9 +14,12 @@ return new class extends Migration
     public function up()
     {
         Schema::table('projects', function (Blueprint $table) {
-            $table->unsignedBigInterger('type_id')->nullable()->after('id');
-
-            $table->foreign('type_id')->refences('id')->on('projects')->onDelete('set null');
+            if (!Schema::hasColumn('projects', 'type_id')) {
+                $table->unsignedBigInteger('type_id')->nullable(); // Aggiunge la colonna solo se non esiste
+            }
+        
+            // Crea la chiave esterna solo se la colonna è stata aggiunta
+            $table->foreign('type_id')->references('id')->on('types')->onDelete('set null');
         });
     }
 
@@ -28,8 +31,9 @@ return new class extends Migration
     public function down()
     {
         Schema::table('projects', function (Blueprint $table) {
-            $table->dropForeign('projects_type_id_foreign');
+            // Rimuovi la chiave esterna e la colonna quando annulli la migration
+            $table->dropForeign(['type_id']);
             $table->dropColumn('type_id');
         });
     }
-};
+}
