@@ -36,3 +36,4 @@ NB: dal momento che ieri non mi sono sentito bene, inizio questa repo oggi 10-10
 - modifico il modello Type secondo le mie necessità.
 - decido di creare uno show.blade.php per visulizzare i dettagli di un progetto, come titolo, descrizione, immagine e adesso anche la tipologia.
 - modifico il codice di index.blade.php per includere il collegamento a show.blade.php
+- modifico ProjectController per includere la gestione delle associazioni tra progetti e tipologie.

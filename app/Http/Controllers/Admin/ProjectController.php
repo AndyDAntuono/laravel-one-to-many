@@ -29,7 +29,8 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('admin.projects.create');
+        $types = Type::all(); //recupera tutte le tipologie
+        return view('admin.projects.create', compact('types'));
     }
 
     /**
@@ -74,6 +75,7 @@ class ProjectController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Validazione dell'immagine
+            'type_id' => 'nullable|exists:type, id', // validazione per il campo type_id
         ]);
 
 
@@ -85,12 +87,13 @@ class ProjectController extends Controller
             $imagePath = null; // Nessuna immagine caricata
         }
 
-        // Crea il nuovo progetto con lo slug e l'immagine
+        // Crea il nuovo progetto con lo slug, l'immagine e con associazione delle tipologia
         $project = Project::create([
             'title' => $validated['title'],
             'description' => $validated['description'],
             'slug' => $this->generateUniqueSlug($validated['title']),
             'image' => $imagePath,
+            'type:id' => $validated['type_id'], // associa la tippologia
         ]);
 
         return redirect()->route('projects.index')->with('success', 'Progetto creato con successo!');
@@ -115,7 +118,8 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        return view('admin.projects.edit', compact('project'));
+        $types = Type::all(); // recupera tutte le tipologia
+        return view('admin.projects.edit', compact('project', 'types'));
     }
 
     /**
@@ -127,11 +131,12 @@ class ProjectController extends Controller
      */
     public function update(Request $request, Project $project)
     {
-        // Validazione dei dati in ingresso, inclusa l'immagine
+        // Validazione dei dati in ingresso, inclusa l'immagine e la tipologia
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // validazione dell'immagine
+            'type_id' => 'nullable|exists:type, id', // validazione per il campo type_id
         ]);
 
         // Gestisci il file immagine se presente
@@ -150,6 +155,7 @@ class ProjectController extends Controller
         $project->title = $validated['title'];
         $project->description = $validated['description'];
         $project->slug = $this->generateUniqueSlug($validated['title']);
+        $project->type_id = $validated['type_id']; // Aggiorna la tipologia
 
         // Salva le modifiche
         $project->save();
