@@ -37,3 +37,4 @@ NB: dal momento che ieri non mi sono sentito bene, inizio questa repo oggi 10-10
 - decido di creare uno show.blade.php per visulizzare i dettagli di un progetto, come titolo, descrizione, immagine e adesso anche la tipologia.
 - modifico il codice di index.blade.php per includere il collegamento a show.blade.php
 - modifico ProjectController per includere la gestione delle associazioni tra progetti e tipologie.
+- modifico create.blade.php per includere un dropdow, o menù a tendina, nella form così l'utente possa scegliere la tipologia del progetto.
