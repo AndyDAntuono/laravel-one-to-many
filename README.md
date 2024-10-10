@@ -54,8 +54,9 @@ NB: dal momento che ieri non mi sono sentito bene, inizio questa repo oggi 10-10
             $table->foreign('type_id')->references('id')->on('types')->onDelete('set null');
         });
     }
-- dato che sono un ciuco, mi dimenticato di popolare la tabella Types e ciò significa che non appare nessuna opzione nel menù a tendina. Ergo apporto le dovute modifiche.
+- dato che sono un ciuco, mi sono dimenticato di popolare la tabella Types e ciò significa che non appare nessuna opzione nel menù a tendina. Ergo apporto le dovute modifiche.
 - ho dovuto apportate diverse correzioni poiché riscontravo vari errori nel controolo delle view e nella scelta di tipologia di progetto.
 - modifico ulteriormente il modello Type.php e TypeSeeder.php soddisfare il completamento del Bonus 1.
 - Eseguo il comando php artisan make:controller Admin/TypeController --resource per un controller con i metodi base per le operazioni CRUD.
 - modifico il file web.php per aggiungingere le rotte per il CRUD di TypeController.php.
+- creo la sotto-cartella nella cartella admin (che asua volta si trova nella cartella views) e creo il file index.blade.php 
