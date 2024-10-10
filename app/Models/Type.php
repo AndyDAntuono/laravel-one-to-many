@@ -7,10 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Type extends Model
 {
-    protected $fillable = ['name'];
+    use HasFactory;
 
+    protected $fillable = ['name']; 
+
+    // Relazione inversa: Un tipo può avere molti progetti
     public function projects()
     {
-        return $this->hasMany(Projects::class);
+        return $this->hasMany(Project::class); // Cambiato 'Projects' in 'Project'
     }
 }
+

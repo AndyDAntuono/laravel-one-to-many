@@ -33,4 +33,10 @@ class Project extends Model
     {
         return $this->image ? asset('storage/' . $this->image) : null;
     }
+
+    // Relazione con il modello Type (tipologia del progetto)
+    public function type()
+    {
+        return $this->belongsTo(Type::class);
+    }
 }

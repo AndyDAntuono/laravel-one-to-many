@@ -5,58 +5,38 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UpdateProjectRequest;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Type;
 
-
 class ProjectController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $projects = Project::all();
         return view('admin.projects.index', compact('projects'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        $types = Type::all(); //recupera tutte le tipologie
+        $types = Type::all(); // recupera tutte le tipologie
         return view('admin.projects.create', compact('types'));
     }
 
-    /**
-     * Method to generate a unique slug for a project based on the title.
-     *
-     * @param  string  $title
-     * @param  Project|null $project (optional)
-     * @return string
-     */
     private function generateUniqueSlug($title, Project $project = null)
     {
-        $slug = Str::slug($title); // Crea lo slug di base
+        $slug = Str::slug($title);
         $originalSlug = $slug;
         $counter = 1;
 
-        // Verifica se lo slug esiste già (escludendo l'ID del progetto in caso di aggiornamento)
         if ($project) {
             while (Project::where('slug', $slug)->where('id', '!=', $project->id)->exists()) {
-                $slug = $originalSlug . '-' . $counter; // Aggiunge un numero incrementale se esiste già
+                $slug = $originalSlug . '-' . $counter;
                 $counter++;
             }
         } else {
             while (Project::where('slug', $slug)->exists()) {
-                $slug = $originalSlug . '-' . $counter; // Aggiunge un numero incrementale se esiste già
+                $slug = $originalSlug . '-' . $counter;
                 $counter++;
             }
         }
@@ -64,86 +44,59 @@ class ProjectController extends Controller
         return $slug;
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        // Validazione dei dati in ingresso, inclusa l'immagine
+        // Validazione dei dati in ingresso
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Validazione dell'immagine
-            'type_id' => 'nullable|exists:type, id', // validazione per il campo type_id
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'type_id' => 'nullable|exists:types,id', // Validazione per il campo type_id
         ]);
 
-
-
-        // Gestisci il file immagine se presente
+        // Gestione dell'immagine se presente
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('public/images');
         } else {
-            $imagePath = null; // Nessuna immagine caricata
+            $imagePath = null;
         }
 
-        // Crea il nuovo progetto con lo slug, l'immagine e con associazione delle tipologia
+        // Creazione del nuovo progetto
         $project = Project::create([
             'title' => $validated['title'],
             'description' => $validated['description'],
             'slug' => $this->generateUniqueSlug($validated['title']),
             'image' => $imagePath,
-            'type:id' => $validated['type_id'], // associa la tippologia
+            'type_id' => $validated['type_id'], // Associa la tipologia
         ]);
 
         return redirect()->route('projects.index')->with('success', 'Progetto creato con successo!');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Project  $project
-     * @return \Illuminate\Http\Response
-     */
     public function show(Project $project)
     {
         return view('admin.projects.show', compact('project'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Project  $project
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Project $project)
     {
-        $types = Type::all(); // recupera tutte le tipologia
+        $types = Type::all(); // Recupera tutte le tipologie
         return view('admin.projects.edit', compact('project', 'types'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateProjectRequest  $request
-     * @param  \App\Models\Project  $project
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Project $project)
     {
-        // Validazione dei dati in ingresso, inclusa l'immagine e la tipologia
+        // Validazione dei dati in ingresso
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // validazione dell'immagine
-            'type_id' => 'nullable|exists:type, id', // validazione per il campo type_id
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'type_id' => 'nullable|exists:types,id', // Validazione per il campo type_id
         ]);
 
-        // Gestisci il file immagine se presente
+        // Gestione dell'immagine se presente
         if ($request->hasFile('image')) {
-            // Elimina la vecchia immagine, se esiste
+            // Elimina la vecchia immagine se esiste
             if ($project->image) {
                 Storage::delete($project->image);
             }
@@ -165,12 +118,6 @@ class ProjectController extends Controller
         return redirect()->route('projects.index')->with('success', 'Progetto aggiornato con successo!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Project  $project
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Project $project)
     {
         $project->delete();
@@ -178,3 +125,4 @@ class ProjectController extends Controller
         return redirect()->route('projects.index')->with('success', 'Progetto eliminato con successo!');
     }
 }
+

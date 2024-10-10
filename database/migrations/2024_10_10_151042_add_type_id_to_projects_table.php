@@ -14,12 +14,17 @@ class AddTypeIdToProjectsTable extends Migration
     public function up()
     {
         Schema::table('projects', function (Blueprint $table) {
+            // Aggiungi la colonna 'type_id' solo se non esiste
             if (!Schema::hasColumn('projects', 'type_id')) {
-                $table->unsignedBigInteger('type_id')->nullable(); // Aggiunge la colonna solo se non esiste
+                $table->unsignedBigInteger('type_id')->nullable(); // Colonna nullable
             }
-        
-            // Crea la chiave esterna solo se la colonna è stata aggiunta
-            $table->foreign('type_id')->references('id')->on('types')->onDelete('set null');
+        });
+
+        // Aggiungi la chiave esterna solo se la colonna è stata aggiunta
+        Schema::table('projects', function (Blueprint $table) {
+            if (Schema::hasColumn('projects', 'type_id')) {
+                $table->foreign('type_id')->references('id')->on('types')->onDelete('set null');
+            }
         });
     }
 
@@ -31,9 +36,9 @@ class AddTypeIdToProjectsTable extends Migration
     public function down()
     {
         Schema::table('projects', function (Blueprint $table) {
-            // Rimuovi la chiave esterna e la colonna quando annulli la migration
-            $table->dropForeign(['type_id']);
-            $table->dropColumn('type_id');
+            // Rimuovi la chiave esterna e la colonna 'type_id' se esistono
+            $table->dropForeign(['type_id']); // Rimuove la chiave esterna
+            $table->dropColumn('type_id');    // Rimuove la colonna
         });
     }
 }
