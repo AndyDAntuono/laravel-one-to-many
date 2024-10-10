@@ -55,3 +55,4 @@ NB: dal momento che ieri non mi sono sentito bene, inizio questa repo oggi 10-10
         });
     }
 - dato che sono un ciuco, mi dimenticato di popolare la tabella Types e ciò significa che non appare nessuna opzione nel menù a tendina. Ergo apporto le dovute modifiche.
+- ho dovuto apportate diverse correzioni poiché riscontravo vari errori nel controolo delle view e nella scelta di tipologia di progetto.
