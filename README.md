@@ -38,3 +38,4 @@ NB: dal momento che ieri non mi sono sentito bene, inizio questa repo oggi 10-10
 - modifico il codice di index.blade.php per includere il collegamento a show.blade.php
 - modifico ProjectController per includere la gestione delle associazioni tra progetti e tipologie.
 - modifico create.blade.php per includere un dropdow, o menù a tendina, nella form così l'utente possa scegliere la tipologia del progetto.
+- ripeto il passaggio successivo ma stavolta per il file edit.blade.php.

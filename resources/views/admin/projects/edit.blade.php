@@ -45,6 +45,15 @@
             <label for="image">Carica nuova immagine</label>
             <input type="file" name="image" id="image" class="form-control"> <!-- campo per l'upload dell'immagine -->
         </div>
+        <div class="form-group">
+            <label for="type_id">Tipologia</label>
+            <select name="type_id" id="type_id" class="form-control">
+                <option value="">Seleziona una tipologia</option>
+                @foreach ($types ad $type)
+                    <option value="{{ $type->id }}">{{ $type->name }}</option>
+                @endforeach
+            </select>
+        </div>
 
         <button type="submit" class="btn btn-primary">Salva modifiche</button>
     </form>
