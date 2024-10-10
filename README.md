@@ -32,3 +32,5 @@ NB: dal momento che ieri non mi sono sentito bene, inizio questa repo oggi 10-10
 - modifico i2024_10_10_151521_create_types_table.php
 - lancio il comando php artisan make:migration add_type_id_to_projects_table --table=projects per aggiungere la colonna types alla tabella projects.
 - modifico 2024_10_10_151042_add_type_id_to_projects_table.php
+- lancio il comando php artisan make:model Type per creare l'omonimo modello
+- modifico il modello Type secondo le mie necessità.
