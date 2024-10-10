@@ -9,7 +9,7 @@ class Type extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name']; 
+    protected $fillable = ['name', 'slug']; 
 
     // Relazione inversa: Un tipo può avere molti progetti
     public function projects()

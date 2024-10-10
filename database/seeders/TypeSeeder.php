@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Type;
 
@@ -15,8 +14,9 @@ class TypeSeeder extends Seeder
      */
     public function run()
     {
-        Type::create(['name' => 'Web App', 'slug' => 'web-app']);
-        Type::create(['name' => 'Mobile App', 'slug' => 'mobile-app']);
-        Type::create(['name' => 'Desktop App', 'slug' => 'desktop-app']);
+        // Usa firstOrCreate per evitare duplicati
+        Type::firstOrCreate(['name' => 'Web App'], ['slug' => 'web-app']);
+        Type::firstOrCreate(['name' => 'Mobile App'], ['slug' => 'mobile-app']);
+        Type::firstOrCreate(['name' => 'Desktop App'], ['slug' => 'desktop-app']);
     }
 }
