@@ -8,13 +8,29 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Type;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class ProjectController extends Controller
 {
     public function index()
     {
-        $projects = Project::all();
-        return view('admin.projects.index', compact('projects'));
+        // Ottieni l'utente autenticato
+        $user = Auth::user();
+        
+        // Log per verificare l'ID utente e se è un amministratore
+        Log::info('ID utente autenticato: ' . $user->id);
+        Log::info('Is user admin? ' . ($user->is_admin ? 'Sì' : 'No'));
+        
+        // Verifica se l'utente è amministratore
+        if ($user && $user->is_admin) {
+            // Se l'utente è un amministratore, carica la lista dei progetti
+            $projects = Project::all();
+            return view('admin.projects.index', compact('projects'));
+        } else {
+            // Se l'utente non è amministratore, reindirizza alla dashboard con un messaggio di errore
+            return redirect()->route('dashboard')->with('error', 'Accesso negato.');
+        }
     }
 
     public function create()

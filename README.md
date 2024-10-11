@@ -70,3 +70,4 @@ NB: dal momento che ieri non mi sono sentito bene, inizio questa repo oggi 10-10
 - avendo realizzato di rischiare di combinare un grandissimo casino, cancello admin.blade.php e integro quel che mi serve da esso direttamente in app.blade.php
 - dal momento che ho problemi di visualizzazion legati al ruolo di user.php lancio la migrazione php artisan make:migration add_is_admin_to_users_table --table=users per cercare di risolvere il problema.
 - sfortunamente non riesco a risolvere il problema di Route [admin.projects.index] not defined.
+- Dopo tanti tentativi a vuoto mi sono contretto a cancellare "admin" nelle routes delle view dell'intero progetto. Non è la soluzione ideale ma se non faccio così non ottengo le view.
