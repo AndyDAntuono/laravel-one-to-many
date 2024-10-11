@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <h1>Gestione Tipologie</h1>
-        <a href="{{ route('types.create') }}" class="btn btn-primary">Nuova Tipologia</a>
+        <a href="{{ route('admin.types.create') }}" class="btn btn-primary">Nuova Tipologia</a>
         <table class="table mt-4">
             <thead>
                 <tr>
