@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ProjectController;
+use App\Http\Controllers\Admin\TypeController;
 
 /*
 |-------------------------------------------------------------------------- 
@@ -28,12 +29,12 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::prefix('admin')->group(function () {
-    Route::middleware('admin')->group(function () {
-        Route::resource('projects', ProjectController::class);
-        Route::resource('types', TypeController::class);  // aggiungo la gestione delle tipologie
-    });
+Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
+    Route::resource('projects', ProjectController::class);
+    Route::resource('types', TypeController::class);
 });
+
+
 
 // Rimuovi questa parte di codice, non è necessaria
 // Route::middleware(['auth'])->group(function () {
