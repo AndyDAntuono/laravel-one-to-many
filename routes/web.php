@@ -29,7 +29,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
+Route::middleware(['auth', 'verified'])->name('admin.')->prefix('admin')->group(function() {
     Route::resource('projects', ProjectController::class);
     Route::resource('types', TypeController::class);
 });
